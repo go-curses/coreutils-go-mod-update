@@ -1,0 +1,39 @@
+/*
+
+ ctk-window#updater-window
+ ctk-vbox#project-list
+ ctk-frame#project-entry
+ ctk-button#module-pick
+ ctk-label#module-error
+ ctk-label#module-name
+ ctk-label#module-this
+ ctk-label#module-next
+ ctk-label#module-err
+
+*/
+
+ctk-frame#project-entry {
+    dim: true;
+}
+
+ctk-button#module-pick--err,
+ctk-button#module-pick--err:insensitive {
+    color: white;
+    background-color: red;
+    dim: false;
+}
+
+ctk-button#module-pick--done,
+ctk-button#module-pick--done:insensitive {
+    color: white;
+    background-color: navy;
+    dim: false;
+}
+
+ctk-label#module-err,
+ctk-label#module-error {
+    color: white;
+    background-color: red;
+    dim: false;
+    bold: true;
+}

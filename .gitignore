@@ -1,0 +1,7 @@
+/.idea
+/.env
+/go-mod-update*
+*#
+*.swp
+*.tmp
+*.log
