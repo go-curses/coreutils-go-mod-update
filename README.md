@@ -12,7 +12,23 @@ Utility for updating Golang `go.mod` projects.
 
 ``` shell
 > go-mod-update --help
+NAME:
+   go-mod-update - go.mod updater
 
+USAGE:
+   go-mod-update [options] [/source/paths ...]
+
+VERSION:
+   0.1.0 (trunk)
+
+DESCRIPTION:
+   command line utility for maintaining golang dependencies
+
+GLOBAL OPTIONS:
+   --goproxy value, -p value  specify the GOPROXY setting to use (default: "https://proxy.golang.org,direct") [$GO_MOD_UPDATE_GOPROXY]
+   --direct, -d               specify the GOPROXY setting of "direct" (overrides --goproxy) (default: false) [$GO_MOD_UPDATE_GOPROXY_DIRECT]
+   --help, -h, --usage        display command-line usage information (default: false)
+   --version, -v              display the version (default: false)
 ```
 
 
