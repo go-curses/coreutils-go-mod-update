@@ -1,0 +1,16 @@
+Source: go-mod-update
+Section: go-curses
+Priority: optional
+Maintainer: The Go-Curses Team <go.enjin.org+curses@gmail.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.1
+Homepage: https://go-curses.org
+Vcs-Browser: https://github.com/go-curses/coreutils-go-mod-update
+Vcs-Git: https://github.com/go-curses/coreutils-go-mod-update.git
+Rules-Requires-Root: no
+
+Package: go-mod-update
+Architecture: any
+Description: Golang go.mod update utility
+ Simple command line utility to help with updating a Golang-based project's
+ go.mod file to the latest modules available.

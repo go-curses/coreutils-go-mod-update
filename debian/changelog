@@ -1,0 +1,8 @@
+go-mod-update (0.1.0) unstable; urgency=medium
+
+  * tagged v0.1.0 release build - ee952c79816266bf8929e7a08bab1b1e0346b777
+  * upstream changes:
+   * ee952c7 README.md: updated --help section
+   * 553e97b initial commit (v0.1.0)
+
+ -- The Go-Curses Team <go.enjin.org+curses@gmail.com>  Tue, 19 Dec 2023 16:58:25 -0500

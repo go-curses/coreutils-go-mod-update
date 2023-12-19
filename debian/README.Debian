@@ -1,0 +1,6 @@
+go-mod-update for Debian
+------------------------
+
+The go-mod-update project only supports arm64 and amd64 CPU architectures.
+
+ -- The Go-Curses Team <go.enjin.org+curses@gmail.com>, Tue, 19 Dec 2023 17:00:24 -0500
