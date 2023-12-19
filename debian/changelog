@@ -1,3 +1,12 @@
+go-mod-update (0.1.1) unstable; urgency=medium
+
+  * tagged v0.1.1 release build - 330b910007bd34b0857448681374cf721cb6ec9e
+  * upstream changes:
+   * 330b910 Makefile: settings UNTAGGED_VERSION to v0.1.1
+   * 8feea7b Procfile: added missing Procfile
+
+ -- The Go-Curses Team <go.enjin.org+curses@gmail.com>  Tue, 19 Dec 2023 17:30:00 -0500
+
 go-mod-update (0.1.0) unstable; urgency=medium
 
   * tagged v0.1.0 release build - ee952c79816266bf8929e7a08bab1b1e0346b777
