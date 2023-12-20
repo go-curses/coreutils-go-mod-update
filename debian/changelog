@@ -1,3 +1,28 @@
+go-mod-update (0.2.0) unstable; urgency=medium
+
+  * tagged v0.2.0 release build - bea8fca07a6e11c6b8329e60f2171f761db88e57
+  * upstream changes:
+   * bea8fca Makefile: setting UNTAGGED_VERSION to v0.2.0
+   * 090bcde go.mod: cdk v0.5.18; ctk v0.5.10; corelibs latest; tidy
+   * 368a38e ui: refactor main user interfaces to use new State for managing UI widgets; use new StateSpinner widget; make project frame titles have their own spinners (when working) and include the number of pending updates for clarity
+   * fa976a5 ui (project): refactor frame title code into UpdateTitle method
+   * 1bf3f43 ui (makers): rig new StateSpinner widget, to the left of the StatusLabel
+   * 35c936d ui (makers): consolidate dupe code to makeButton method
+   * ade703b ui (lifecycle): rig --tidy flag setting; use u.App.Title() instead of hard-coded; code cosmetic changes
+   * 1f0f1eb ui (accelmap): move makeAccelMap func to makers file
+   * e0f3a32 ui (package): use State().Idle() to regulate button sensitivity
+   * 56a2cc8 ui: implement new State concept; add new StateSpinner; add new --tidy flag; sort cli flags
+   * 773c20a ui/updater: rename to themes.go
+   * 39e92ab mod discover, update: use goWorkProxyEnviron; code cosmetic changes
+   * 660d276 mod-tidy: new Tidy func
+   * fdd163f cmd: use constants for app name, usage, desc, tag and title
+   * 5aba759 mod-environ: new goWorkProxyEnviron helper func
+   * 0a70994 ui (window): remove the extra v from the window title version string
+   * 8794c27 cmd: set default BuildVersion to v0.0.0
+   * 21e9726 Makefile: set build version and release vars to their correct (for this project) main.BuildVersion and main.BuildRelease
+
+ -- The Go-Curses Team <go.enjin.org+curses@gmail.com>  Wed, 20 Dec 2023 18:27:15 -0500
+
 go-mod-update (0.1.1) unstable; urgency=medium
 
   * tagged v0.1.1 release build - 330b910007bd34b0857448681374cf721cb6ec9e
