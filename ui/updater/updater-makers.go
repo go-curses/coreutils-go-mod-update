@@ -15,10 +15,53 @@
 package updater
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/go-curses/cdk"
 	"github.com/go-curses/cdk/lib/enums"
 	"github.com/go-curses/ctk"
 )
+
+func (u *CUpdater) makeAccelmap() (ag ctk.AccelGroup) {
+	ag = ctk.NewAccelGroup()
+	ag.ConnectByPath(
+		"<updater-window>/File/Update",
+		"update-accel",
+		func(argv ...interface{}) (handled bool) {
+			if u.State().Idle() {
+				cdk.Go(u.requestUpdates)
+				ag.LogDebug("update-accel called")
+			} else {
+				ag.LogDebug("update-accel ignored")
+			}
+			return
+		},
+	)
+	ag.ConnectByPath(
+		"<updater-window>/File/Rediscover",
+		"rediscover-accel",
+		func(argv ...interface{}) (handled bool) {
+			if u.State().Idle() {
+				cdk.Go(u.requestDiscovery)
+				ag.LogDebug("rediscover-accel called")
+			} else {
+				ag.LogDebug("rediscover-accel ignored")
+			}
+			return
+		},
+	)
+	ag.ConnectByPath(
+		"<updater-window>/File/Quit",
+		"quit-accel",
+		func(argv ...interface{}) (handled bool) {
+			ag.LogDebug("quit-accel called")
+			u.requestQuit()
+			return
+		},
+	)
+	return
+}
 
 func (u *CUpdater) makeActionButtonBox() ctk.HButtonBox {
 	u.ActionHBox = ctk.NewHButtonBox(false, 1)
