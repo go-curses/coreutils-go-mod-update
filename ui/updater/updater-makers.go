@@ -20,6 +20,7 @@ import (
 
 	"github.com/go-curses/cdk"
 	"github.com/go-curses/cdk/lib/enums"
+	"github.com/go-curses/cdk/lib/paint"
 	"github.com/go-curses/ctk"
 )
 
@@ -67,6 +68,12 @@ func (u *CUpdater) makeActionButtonBox() ctk.HButtonBox {
 	u.ActionHBox = ctk.NewHButtonBox(false, 1)
 	u.ActionHBox.Show()
 	u.ActionHBox.SetSizeRequest(-1, 1)
+
+	u.StateSpinner = ctk.NewSpinner()
+	u.StateSpinner.Hide()
+	u.StateSpinner.SetSizeRequest(1, 1)
+	u.StateSpinner.SetSpinnerRunes(paint.OrbitDotSpinnerRuneSet...)
+	u.ActionHBox.PackStart(u.StateSpinner, false, false, 1)
 
 	u.StatusLabel = u.makeLabel("status-label", "")
 	u.StatusLabel.SetCanFocus(false)
