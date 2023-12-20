@@ -16,7 +16,6 @@ package update
 
 import (
 	"os"
-	"strings"
 
 	"github.com/go-curses/corelibs/chdirs"
 
@@ -32,23 +31,19 @@ func Update(module *Module, goProxy string) {
 		module.Err = err
 		return
 	}
-	defer func() { _ = chdirs.Pop() }()
-
-	var environ []string
-	for _, line := range os.Environ() {
-		if strings.HasPrefix(line, "GOWORK=") || strings.HasPrefix(line, "GOPROXY=") {
-			continue
+	defer func() {
+		if ee := chdirs.Pop(); ee != nil {
+			cwd, _ := os.Getwd()
+			log.ErrorF("run.Pop error: cwd=%q; %v", cwd, ee)
 		}
-		environ = append(environ, line)
-	}
-	environ = append(environ, "GOWORK=off", "GOPROXY="+goProxy)
+	}()
 
 	var status int
 	if _, _, _, err = run.With(run.Options{
 		Path:    module.Path,
 		Name:    "go",
 		Argv:    []string{"get", module.Name + "@v" + module.Next.String()},
-		Environ: environ,
+		Environ: goWorkProxyEnviron(goProxy),
 	}); err != nil {
 		log.ErrorF(`"go get" exited with status %d: %v`, status, err)
 		module.Err = err
