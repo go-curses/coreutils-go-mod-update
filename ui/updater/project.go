@@ -18,8 +18,9 @@ import (
 	"fmt"
 	"path/filepath"
 
-	update "github.com/go-curses/coreutils-go-mod-update"
 	"github.com/go-curses/ctk"
+
+	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
 type CProject struct {
@@ -53,6 +54,21 @@ func (u *CUpdater) newProject(path string) (p *CProject) {
 	return
 }
 
+func (p *CProject) setTitle() {
+	if count := p.Pending(); count > 0 {
+		p.Frame.SetLabel(fmt.Sprintf("%s (%d pending)", p.Name, count))
+	} else {
+		p.Frame.SetLabel(fmt.Sprintf("%s (none pending)", p.Name))
+	}
+}
+
+func (p *CProject) UpdateTitle() {
+	p.setTitle()
+	p.Frame.Resize()
+	p.u.Display.RequestDraw()
+	p.u.Display.RequestShow()
+}
+
 func (p *CProject) Add(modules ...*update.Module) {
 	for _, module := range modules {
 		pkg := p.u.newPackage(p, module)
@@ -61,9 +77,8 @@ func (p *CProject) Add(modules ...*update.Module) {
 		if pkg.Error != nil {
 			p.VBox.PackStart(pkg.Error, true, true, 0)
 		}
-		//pkg.Resize()
 	}
-
+	p.setTitle()
 	p.Resize()
 	return
 }
@@ -112,11 +127,5 @@ func (p *CProject) Refresh() {
 		child.Destroy()
 	}
 
-	if len(modules) == 0 {
-		p.Frame.SetLabel(p.Path + " (none pending)")
-		p.Frame.Resize()
-	} else {
-		p.Frame.SetLabel(fmt.Sprintf("%s (%d pending)", p.Path, modules.Pending()+p.Pending()))
-		p.Add(modules...)
-	}
+	p.Add(modules...)
 }
