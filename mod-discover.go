@@ -63,15 +63,6 @@ func StartDiscovery(path string, goProxy string) (modules Modules, err error) {
 		}
 	}()
 
-	var environ []string
-	for _, line := range os.Environ() {
-		if strings.HasPrefix(line, "GOWORK=") || strings.HasPrefix(line, "GOPROXY=") {
-			continue
-		}
-		environ = append(environ, line)
-	}
-	environ = append(environ, "GOWORK=off", "GOPROXY="+goProxy)
-
 	var await chan bool
 	if gDiscoveryPid, await, err = run.Callback(run.Options{
 		Path: path,
@@ -85,7 +76,7 @@ func StartDiscovery(path string, goProxy string) (modules Modules, err error) {
 			"-m",
 			"all",
 		},
-		Environ: environ,
+		Environ: goWorkProxyEnviron(goProxy),
 	}, func(line string) {
 		if line = strings.TrimSpace(line); line == "" {
 			return

@@ -24,9 +24,10 @@ import (
 	"github.com/go-curses/cdk/lib/paths"
 	"github.com/go-curses/cdk/lib/ptypes"
 	"github.com/go-curses/cdk/log"
-	update "github.com/go-curses/coreutils-go-mod-update"
 	"github.com/go-curses/ctk"
 	"github.com/go-curses/ctk/lib/enums"
+
+	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
 func (u *CUpdater) startup(data []interface{}, argv ...interface{}) cenums.EventFlag {
@@ -43,6 +44,8 @@ func (u *CUpdater) startup(data []interface{}, argv ...interface{}) cenums.Event
 		} else if ctx.IsSet("goproxy") {
 			u.goProxy = ctx.String("goproxy")
 		}
+
+		u.tidy = ctx.Bool("tidy")
 
 		if args := ctx.Args().Slice(); len(args) > 0 {
 			for _, arg := range args {
@@ -91,7 +94,7 @@ func (u *CUpdater) startup(data []interface{}, argv ...interface{}) cenums.Event
 			return cenums.EVENT_STOP
 		}
 
-		title := fmt.Sprintf("go.mod updater - v%v", u.App.Version())
+		title := fmt.Sprintf("%s - %v", u.App.Title(), u.App.Version())
 
 		ctk.GetAccelMap().LoadFromString(gAccelMap)
 
@@ -141,8 +144,6 @@ func (u *CUpdater) startup(data []interface{}, argv ...interface{}) cenums.Event
 
 		u.refreshUI()
 		u.Window.Resize()
-		//u.App.NotifyStartupComplete()
-		//u.HostsViewport.GrabFocus()
 
 		cdk.Go(u.requestDiscovery)
 

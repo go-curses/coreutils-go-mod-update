@@ -17,39 +17,27 @@ package update
 import (
 	"os"
 
-	"github.com/go-curses/corelibs/chdirs"
-
 	"github.com/go-curses/cdk/log"
+	"github.com/go-curses/corelibs/chdirs"
 	"github.com/go-curses/corelibs/run"
 )
 
-func Update(module *Module, goProxy string) {
-	var err error
-	if err = chdirs.Push(module.Path); err != nil {
+func Tidy(path string, goProxy string) (err error) {
+	if err = chdirs.Push(path); err != nil {
 		cwd, _ := os.Getwd()
 		log.ErrorF("run.Push error, cwd: %q", cwd)
-		module.Err = err
 		return
 	}
-	defer func() {
-		if ee := chdirs.Pop(); ee != nil {
-			cwd, _ := os.Getwd()
-			log.ErrorF("run.Pop error: cwd=%q; %v", cwd, ee)
-		}
-	}()
+	defer func() { _ = chdirs.Pop() }()
 
 	var status int
 	if _, _, _, err = run.With(run.Options{
-		Path:    module.Path,
+		Path:    path,
 		Name:    "go",
-		Argv:    []string{"get", module.Name + "@v" + module.Next.String()},
+		Argv:    []string{"mod", "tidy"},
 		Environ: goWorkProxyEnviron(goProxy),
 	}); err != nil {
-		log.ErrorF(`"go get" exited with status %d: %v`, status, err)
-		module.Err = err
-	} else {
-		module.Pick = false
-		module.Done = true
+		log.ErrorF(`"go mod tidy" exited with status %d: %v`, status, err)
 	}
 
 	return

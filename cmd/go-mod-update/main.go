@@ -26,6 +26,14 @@ import (
 	"github.com/go-curses/coreutils-go-mod-update/ui/updater"
 )
 
+const (
+	APP_TAG         = "go-mod-update"
+	APP_NAME        = "go-mod-update"
+	APP_TITLE       = "go.mod update"
+	APP_USAGE       = "go.mod update"
+	APP_DESCRIPTION = "command line utility for updating golang dependencies"
+)
+
 // Build Configuration Flags
 // setting these will enable command line flags and their corresponding features
 // use `go build -v -ldflags="-X 'main.IncludeLogFullPaths=false'"`
@@ -42,7 +50,7 @@ var (
 )
 
 var (
-	BuildVersion = "0.1.0"
+	BuildVersion = "v0.0.0"
 	BuildRelease = "trunk"
 )
 
@@ -60,12 +68,12 @@ func init() {
 
 func main() {
 	updater := updater.NewUpdater(
-		"go-mod-update",
-		"go.mod updater",
-		"command line utility for maintaining golang dependencies",
+		APP_NAME,
+		APP_USAGE,
+		APP_DESCRIPTION,
 		BuildVersion+" ("+BuildRelease+")",
-		"go-mod-update",
-		"go.mod updater",
+		APP_TAG,
+		APP_TITLE,
 		"/dev/tty",
 	)
 	appCLI := updater.App.CLI()

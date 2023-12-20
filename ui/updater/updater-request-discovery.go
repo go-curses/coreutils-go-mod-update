@@ -17,57 +17,64 @@ package updater
 import (
 	"fmt"
 
+	"github.com/go-curses/cdk/log"
 	"github.com/go-curses/corelibs/spinner"
 
 	"github.com/go-curses/cdk"
+
 	"github.com/go-curses/coreutils-go-mod-update"
 )
 
 func (u *CUpdater) requestDiscovery() {
+	if !u.State().Idle() {
+		log.DebugF("user requesting discovery when updater is not idle")
+		return
+	}
 
 	u.modLock.Lock()
 	defer u.modLock.Unlock()
-	d := u.Display
 
-	u.startUiChanges("")
+	u.SetState(DiscoveryState)
+
+	var idx int
+	var s spinner.Spinner
+	var project, previous *CProject
+	projectCount := len(u.paths)
 
 	u.Projects = make([]*CProject, 0)
+
 	for _, child := range u.ProjectList.GetChildren() {
 		u.ProjectList.Remove(child)
 		child.Destroy()
 	}
 
-	pathCount := len(u.paths)
-
-	var idx int
-	var note string
-	var s spinner.Spinner
-
 	s = spinner.NewSpinner(spinner.DefaultSymbols, func(symbol string) {
-		var message string
-		if pathCount > 1 {
-			message = fmt.Sprintf("%s discovering (%d of %d): %s", symbol, idx+1, pathCount, note)
-		} else {
-			message = fmt.Sprintf("%s discovering: %s", symbol, note)
+		if project != nil {
+			project.Frame.SetLabel(symbol + " " + project.Name)
+			project.Frame.Resize()
 		}
-		u.setStatus(message)
-		d.RequestDraw()
-		d.RequestShow()
+		if previous != nil && previous.Path != project.Path {
+			previous.UpdateTitle()
+			previous = project
+		}
+		if projectCount > 1 {
+			u.StatusLabel.SetLabel(fmt.Sprintf("discovering... (%d of %d)", idx+1, projectCount))
+		}
+		u.Display.RequestDraw()
+		u.Display.RequestShow()
 	})
 	cdk.Go(s.Start)
 
 	for _, path := range u.paths {
-		project := u.newProject(path)
-		u.Projects = append(u.Projects, project)
-		u.ProjectList.PackStart(project.Frame, false, false, 0)
+		p := u.newProject(path)
+		u.Projects = append(u.Projects, p)
+		u.ProjectList.PackStart(p.Frame, false, false, 0)
 	}
 	u.ProjectList.Resize()
-	d.RequestDraw()
-	d.RequestShow()
+	u.Display.RequestDraw()
+	u.Display.RequestShow()
 
-	var project *CProject
 	for idx, project = range u.Projects {
-		note = "../" + project.Name
 		if found, err := update.StartDiscovery(project.Path, u.goProxy); err == nil {
 			if count := len(found); count > 0 {
 				project.Add(found...)
@@ -80,9 +87,10 @@ func (u *CUpdater) requestDiscovery() {
 			u.ErrorList.PackStart(u.makeError(err), true, true, 0)
 		}
 		_ = update.StopDiscovery()
+		previous = project
 	}
 
 	s.Stop()
 
-	u.finishUiChanges()
+	u.SetState(IdleState)
 }

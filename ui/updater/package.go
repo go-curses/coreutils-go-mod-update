@@ -18,8 +18,9 @@ import (
 	"github.com/go-curses/cdk"
 	"github.com/go-curses/cdk/lib/enums"
 	"github.com/go-curses/corelibs/spinner"
-	"github.com/go-curses/coreutils-go-mod-update"
 	"github.com/go-curses/ctk"
+
+	"github.com/go-curses/coreutils-go-mod-update"
 )
 
 var (
@@ -98,22 +99,23 @@ func (u *CUpdater) newPackage(project *CProject, module *update.Module) (p *CPac
 }
 
 func (p *CPackage) UpdateButton() {
+	if !p.u.State().Idle() || p.Module.Err != nil || p.Module.Done {
+		p.Button.SetSensitive(false)
+	} else {
+		p.Button.SetSensitive(true)
+	}
 	if p.Module.Err != nil {
 		p.Button.SetName("module-pick--err")
 		p.Button.SetLabel(ModError)
-		p.Button.SetSensitive(false)
 	} else if p.Module.Done {
 		p.Button.SetName("module-pick--done")
 		p.Button.SetLabel(ModDone)
-		p.Button.SetSensitive(false)
 	} else if p.Module.Pick {
 		p.Button.SetName("module-pick")
 		p.Button.SetLabel(ModSelected)
-		p.Button.SetSensitive(true)
 	} else {
 		p.Button.SetName("module-pick")
 		p.Button.SetLabel(ModUnselected)
-		p.Button.SetSensitive(true)
 	}
 }
 
@@ -141,6 +143,5 @@ func (p *CPackage) GoModUpdate() {
 
 	s.Stop()
 	p.UpdateButton()
-
 	return
 }

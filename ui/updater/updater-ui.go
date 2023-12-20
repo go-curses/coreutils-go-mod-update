@@ -26,6 +26,8 @@ func (u *CUpdater) getContentWidth() (w int) {
 }
 
 func (u *CUpdater) resizeUI() {
+	u.ProjectList.Freeze()
+
 	contentWidth := u.getContentWidth()
 	listHeight := u.Projects.Height()
 	u.ProjectList.SetSizeRequest(contentWidth, listHeight)
@@ -40,55 +42,42 @@ func (u *CUpdater) resizeUI() {
 		u.ErrorList.Hide()
 	}
 
+	u.ProjectList.Thaw()
 	u.Window.Resize()
 	u.Display.RequestDraw()
 	u.Display.RequestShow()
 }
 
 func (u *CUpdater) refreshUI() {
+	u.Window.Freeze()
 	u.Projects.Refresh()
 	u.refreshUpdateButton()
+	u.Window.Thaw()
 	u.resizeUI()
 }
 
+func (u *CUpdater) refreshDiscoverButton() {
+	if !u.State().Idle() {
+		u.DiscoverButton.SetSensitive(false)
+		u.DiscoverButton.Hide()
+		return
+	}
+	u.DiscoverButton.SetSensitive(true)
+	u.DiscoverButton.Show()
+}
+
 func (u *CUpdater) refreshUpdateButton() {
-	var hasPicked bool
-	for _, project := range u.Projects {
-		for _, pkg := range project.Packages {
-			if hasPicked = pkg.Module.Pick && !pkg.Module.Done; hasPicked {
-				break
+	if u.State().Idle() {
+		for _, project := range u.Projects {
+			for _, pkg := range project.Packages {
+				if hasPicked := pkg.Module.Pick && !pkg.Module.Done; hasPicked {
+					u.UpdateButton.Show()
+					u.UpdateButton.SetSensitive(hasPicked)
+					return
+				}
 			}
 		}
-		if hasPicked {
-			break
-		}
 	}
-	u.UpdateButton.SetSensitive(hasPicked)
-}
-
-func (u *CUpdater) setStatus(label string) {
-	u.StatusLabel.SetLabel(label)
-	u.StatusLabel.Show()
-}
-
-func (u *CUpdater) clearStatus() {
-	u.StatusLabel.SetLabel("")
-	u.StatusLabel.Hide()
-}
-
-func (u *CUpdater) startUiChanges(statusText string) {
-	u.ProjectList.SetSensitive(false)
 	u.UpdateButton.SetSensitive(false)
-	u.DiscoverButton.SetSensitive(false)
-	u.setStatus(statusText)
-
-	u.Display.RequestDraw()
-	u.Display.RequestShow()
-}
-
-func (u *CUpdater) finishUiChanges() {
-	u.clearStatus()
-	u.ProjectList.SetSensitive(true)
-	u.DiscoverButton.SetSensitive(true)
-	u.refreshUI()
+	u.UpdateButton.Hide()
 }

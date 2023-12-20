@@ -16,6 +16,7 @@ package updater
 
 import (
 	_ "embed"
+	"sort"
 
 	"github.com/urfave/cli/v2"
 
@@ -46,6 +47,7 @@ type CUpdater struct {
 	ErrorList     ctk.VBox
 	ProjectList   ctk.VBox
 	StatusLabel   ctk.Label
+	StateSpinner  ctk.Spinner
 	ContentScroll ctk.ScrolledViewport
 
 	LastError error
@@ -54,7 +56,10 @@ type CUpdater struct {
 
 	paths   []string
 	goProxy string
+	tidy    bool
 	modLock *sync.RWMutex
+
+	state State
 
 	sync.RWMutex
 }
@@ -79,7 +84,14 @@ func NewUpdater(name string, usage string, description string, version string, t
 			Aliases: []string{"p"},
 			Value:   env.Get("GOPROXY", "https://proxy.golang.org,direct"),
 		},
+		&cli.BoolFlag{
+			Name:    "tidy",
+			Usage:   `run "go mod tidy" after updates`,
+			EnvVars: []string{"GO_MOD_UPDATE_TIDY"},
+			Aliases: []string{"t"},
+		},
 	)
+	sort.Sort(cli.FlagsByName(c.Flags))
 	u.App.Connect(cdk.SignalStartup, "updater-startup-handler", u.startup)
 	u.App.Connect(cdk.SignalShutdown, "updater-shutdown-handler", u.shutdown)
 	return
