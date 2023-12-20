@@ -55,8 +55,8 @@ CLEAN_FILES     ?= ${BIN_NAME} ${BIN_NAME}.*.* coverage.out pprof.*
 DISTCLEAN_FILES ?=
 REALCLEAN_FILES ?=
 
-BUILD_VERSION_VAR := main.APP_VERSION
-BUILD_RELEASE_VAR := main.APP_RELEASE
+BUILD_VERSION_VAR := main.BuildVersion
+BUILD_RELEASE_VAR := main.BuildRelease
 
 SRC_CMD_PATH := ./cmd/go-mod-update
 
