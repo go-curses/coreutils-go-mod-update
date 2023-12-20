@@ -16,39 +16,49 @@ package updater
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/go-curses/corelibs/spinner"
+	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
 func (u *CUpdater) requestUpdates() {
 	u.modLock.Lock()
 	defer u.modLock.Unlock()
 
-	u.startUiChanges("updating dependencies")
+	u.SetState(UpdatingState)
 
-	var moduleCount int
+	var s spinner.Spinner
+	var idx, moduleCount int
+	var overrideMessage string
+	var project, previous *CProject
 
-	for _, project := range u.Projects {
-		for _, pkg := range project.Packages {
+	for _, p := range u.Projects {
+		for _, pkg := range p.Packages {
 			if pkg.Module.Pick && !pkg.Module.Done {
 				moduleCount += 1
 			}
 		}
 	}
 
-	var idx int
-	var s spinner.Spinner
-	var note string
-	var project *CProject
-
 	statusUpdater := func(symbol string) {
-		var message string
-		if moduleCount > 1 {
-			message = fmt.Sprintf("%s updating (%d of %d): %s", s.String(), idx+1, moduleCount, note)
-		} else {
-			message = fmt.Sprintf("%s updating: %s", s.String(), note)
+		if project != nil {
+			project.Frame.SetLabel(symbol + " " + project.Name)
+			project.Frame.Resize()
 		}
-		u.setStatus(message)
+		if previous != nil && previous.Path != project.Path {
+			previous.UpdateTitle()
+			previous = project
+		}
+		if overrideMessage == "" {
+			if moduleCount > 1 {
+				u.StatusLabel.SetLabel(fmt.Sprintf("updating... (%d of %d)", idx+1, moduleCount))
+			} else {
+				u.StatusLabel.SetLabel("updating...")
+			}
+		} else {
+			u.StatusLabel.SetLabel(overrideMessage)
+		}
 		u.Display.RequestDraw()
 		u.Display.RequestShow()
 		return
@@ -56,20 +66,33 @@ func (u *CUpdater) requestUpdates() {
 
 	s = spinner.NewSpinner(spinner.DefaultSymbols, statusUpdater)
 
-	for idx, project = range u.Projects {
+	for _, project = range u.Projects {
+		var updated bool
 		for _, pkg := range project.Packages {
-			if pkg.Module.Pick && !pkg.Module.Done {
-				note = pkg.Module.Name
+			if updated = pkg.Module.Pick && !pkg.Module.Done; updated {
 				statusUpdater(s.String())
 				pkg.GoModUpdate()
 				pkg.Module.Pick = false
-				note = "..."
 				statusUpdater(s.String())
+				idx += 1
 			}
 		}
+		if u.tidy && updated {
+			overrideMessage = "go mod tidy: " + project.Name
+			statusUpdater(s.String())
+			time.Sleep(time.Millisecond * 500)
+			if err := update.Tidy(project.Path, u.goProxy); err != nil {
+				err = fmt.Errorf("%q error: %v", project.Name, err)
+				u.ErrorList.PackStart(u.makeError(err), true, true, 0)
+			}
+			time.Sleep(time.Millisecond * 500)
+			overrideMessage = ""
+			statusUpdater(s.String())
+		}
+		previous = project
 	}
 
 	s.Stop()
 
-	u.finishUiChanges()
+	u.SetState(IdleState)
 }
