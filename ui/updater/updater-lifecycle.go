@@ -91,7 +91,7 @@ func (u *CUpdater) startup(data []interface{}, argv ...interface{}) cenums.Event
 			return cenums.EVENT_STOP
 		}
 
-		title := fmt.Sprintf("go.mod updater - v%v", u.App.Version())
+		title := fmt.Sprintf("go.mod updater - %v", u.App.Version())
 
 		ctk.GetAccelMap().LoadFromString(gAccelMap)
 
