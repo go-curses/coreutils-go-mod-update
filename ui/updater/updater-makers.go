@@ -77,36 +77,43 @@ func (u *CUpdater) makeActionButtonBox() ctk.HButtonBox {
 	sep.Show()
 	u.ActionHBox.PackEnd(sep, true, true, 0)
 
-	u.UpdateButton = ctk.NewButtonWithMnemonic("_Update <F8>")
-	u.UpdateButton.Show()
-	u.UpdateButton.SetSizeRequest(-1, 1)
-	u.UpdateButton.SetSensitive(false)
-	u.UpdateButton.Connect(ctk.SignalActivate, "upgrades-handler", func(data []interface{}, argv ...interface{}) enums.EventFlag {
+	u.UpdateButton = u.makeButton("update", "F8", "_Update", "", func(data []interface{}, argv ...interface{}) enums.EventFlag {
 		cdk.Go(u.requestUpdates)
 		return enums.EVENT_PASS
 	})
 	u.ActionHBox.PackEnd(u.UpdateButton, false, false, 0)
 
-	u.DiscoverButton = ctk.NewButtonWithMnemonic("_Rediscover <F5>")
-	u.DiscoverButton.Show()
-	u.DiscoverButton.SetSizeRequest(-1, 1)
-	u.DiscoverButton.SetSensitive(false)
-	u.DiscoverButton.Connect(ctk.SignalActivate, "discover-handler", func(data []interface{}, argv ...interface{}) enums.EventFlag {
+	u.DiscoverButton = u.makeButton("discover", "F5", "_Reload", "", func(data []interface{}, argv ...interface{}) enums.EventFlag {
 		cdk.Go(u.requestDiscovery)
 		return enums.EVENT_PASS
 	})
 	u.ActionHBox.PackEnd(u.DiscoverButton, false, false, 0)
 
-	u.QuitButton = ctk.NewButtonWithMnemonic("_Quit <F10>")
-	u.QuitButton.Show()
-	u.QuitButton.SetSizeRequest(-1, 1)
-	u.QuitButton.Connect(ctk.SignalActivate, "quit-handler", func(data []interface{}, argv ...interface{}) enums.EventFlag {
+	u.QuitButton = u.makeButton("quit", "F10", "_Quit", "", func(data []interface{}, argv ...interface{}) enums.EventFlag {
 		u.requestQuit()
 		return enums.EVENT_PASS
 	})
+	u.QuitButton.SetSensitive(true)
 	u.ActionHBox.PackEnd(u.QuitButton, false, false, 0)
 
 	return u.ActionHBox
+}
+
+func (u *CUpdater) makeButton(key, fKey, label, tooltip string, actFn cdk.SignalListenerFn) (button ctk.Button) {
+	fKey = strings.ToUpper(fKey)
+	shortTitle := fmt.Sprintf("%s <%s>", label, fKey)
+	button = ctk.NewButtonWithMnemonic(shortTitle)
+	button.Show()
+	button.SetSizeRequest(-1, 1)
+	button.SetSensitive(false)
+	if tooltip != "" {
+		button.SetHasTooltip(true)
+		button.SetTooltipText(tooltip)
+	}
+	if actFn != nil {
+		button.Connect(ctk.SignalActivate, key+"-handler", actFn)
+	}
+	return
 }
 
 func (u *CUpdater) makeLabel(name, text string) (label ctk.Label) {
