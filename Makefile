@@ -21,8 +21,8 @@
 #export
 
 BIN_NAME := go-mod-update
-UNTAGGED_VERSION := v0.2.0
-UNTAGGED_COMMIT := bea8fca07a
+UNTAGGED_VERSION := v0.2.1
+UNTAGGED_COMMIT := trunk
 
 SHELL := /bin/bash
 RUN_ARGS := --help
