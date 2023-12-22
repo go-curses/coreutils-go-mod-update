@@ -1,3 +1,15 @@
+go-mod-update (0.2.1) unstable; urgency=medium
+
+  * tagged v0.2.1 release build - 18824bdf332a2e3b201be1b3fc66a50967c89667
+  * upstream changes:
+   * 18824bd Makefile: setting UNTAGGED_VERSION to v0.2.1
+   * 40de355 go.mod: cdk v0.5.19; ctk v0.5.11; corelibs latest; tidy
+   * e1903ec README.md: updated --help section
+   * 6fe9189 Golang.cmd.mk: update to v0.1.6
+   * 447b7aa Golang.cdk.mk: update to v0.1.1
+
+ -- The Go-Curses Team <go.enjin.org+curses@gmail.com>  Fri, 22 Dec 2023 16:35:46 -0500
+
 go-mod-update (0.2.0) unstable; urgency=medium
 
   * tagged v0.2.0 release build - bea8fca07a6e11c6b8329e60f2171f761db88e57

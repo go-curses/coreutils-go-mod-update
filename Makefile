@@ -22,7 +22,7 @@
 
 BIN_NAME := go-mod-update
 UNTAGGED_VERSION := v0.2.1
-UNTAGGED_COMMIT := trunk
+UNTAGGED_COMMIT := 18824bdf33
 
 SHELL := /bin/bash
 RUN_ARGS := --help
