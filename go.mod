@@ -4,11 +4,11 @@ go 1.21.0
 
 require (
 	github.com/Masterminds/semver/v3 v3.2.1
-	github.com/go-curses/cdk v0.5.18
-	github.com/go-curses/corelibs/chdirs v0.0.0-20231220225137-f904a5fd4c61
-	github.com/go-curses/corelibs/run v0.0.0-20231220225137-f904a5fd4c61
-	github.com/go-curses/corelibs/spinner v0.0.0-20231220225137-f904a5fd4c61
-	github.com/go-curses/ctk v0.5.10
+	github.com/go-curses/cdk v0.5.19
+	github.com/go-curses/corelibs/chdirs v0.0.0-20231222210326-a72ab16264c4
+	github.com/go-curses/corelibs/run v0.0.0-20231222210326-a72ab16264c4
+	github.com/go-curses/corelibs/spinner v0.0.0-20231222210326-a72ab16264c4
+	github.com/go-curses/ctk v0.5.11
 	github.com/urfave/cli/v2 v2.26.0
 )
 
@@ -44,6 +44,7 @@ require (
 	github.com/x-cray/logrus-prefixed-formatter v0.5.2 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
+	golang.org/x/exp v0.0.0-20231219180239-dc181d75b848 // indirect
 	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/term v0.15.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
