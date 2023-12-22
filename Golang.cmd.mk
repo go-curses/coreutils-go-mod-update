@@ -15,7 +15,7 @@
 # limitations under the License.
 
 GOLANG_MAKEFILE_KEYS += CMD
-GOLANG_CMD_MK_VERSION := v0.1.5
+GOLANG_CMD_MK_VERSION := v0.1.6
 
 .PHONY: __golang __tidy __local __unlocal __be_update
 .PHONY: __vet __test __cover __generate
@@ -26,8 +26,8 @@ SHELL := /bin/bash
 UNTAGGED_VERSION ?= v0.0.0
 UNTAGGED_COMMIT ?= 0000000000
 
-BUILD_OS   := $(shell uname -s | awk '{print $$1}' | perl -pe '$$_=lc($$_)')
-BUILD_ARCH := $(shell uname -m | perl -pe 's!aarch64!arm64!;s!x86_64!amd64!;')
+BUILD_OS   ?= $(shell uname -s | awk '{print $$1}' | perl -pe '$$_=lc($$_)')
+BUILD_ARCH ?= $(shell uname -m | perl -pe 's!aarch64!arm64!;s!x86_64!amd64!;')
 BUILD_NAME := ${BIN_NAME}.${BUILD_OS}.${BUILD_ARCH}
 
 GIT_STATUS := $(git status 2> /dev/null)
