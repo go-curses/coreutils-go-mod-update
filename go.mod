@@ -5,9 +5,9 @@ go 1.21.0
 require (
 	github.com/Masterminds/semver/v3 v3.2.1
 	github.com/go-curses/cdk v0.5.19
-	github.com/go-curses/corelibs/chdirs v0.0.0-20231222210326-a72ab16264c4
-	github.com/go-curses/corelibs/run v0.0.0-20231222210326-a72ab16264c4
-	github.com/go-curses/corelibs/spinner v0.0.0-20231222210326-a72ab16264c4
+	github.com/go-curses/corelibs/chdirs v0.0.0-20231226200921-ab656d8a4a54
+	github.com/go-curses/corelibs/run v0.0.0-20231226200921-ab656d8a4a54
+	github.com/go-curses/corelibs/spinner v0.0.0-20231226200921-ab656d8a4a54
 	github.com/go-curses/ctk v0.5.11
 	github.com/urfave/cli/v2 v2.26.0
 )
