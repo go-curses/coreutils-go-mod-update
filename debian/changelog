@@ -1,3 +1,13 @@
+go-mod-update (0.2.2) unstable; urgency=medium
+
+  * tagged v0.2.2 release build - 5fccd8cf885372e9ae1591a12b539da588f87e34
+  * upstream changes:
+   * 5fccd8c Makefile: setting UNTAGGED_VERSION to v0.2.2
+   * 72f4429 go.mod: corelibs latest; tidy
+   * bafe080 Makefile: GOPKG_KEYS cosmetic changes
+
+ -- The Go-Curses Team <go.enjin.org+curses@gmail.com>  Tue, 26 Dec 2023 15:19:32 -0500
+
 go-mod-update (0.2.1) unstable; urgency=medium
 
   * tagged v0.2.1 release build - 18824bdf332a2e3b201be1b3fc66a50967c89667
