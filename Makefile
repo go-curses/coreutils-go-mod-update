@@ -31,7 +31,7 @@ LOG_LEVEL := debug
 GO_ENJIN_PKG := nil
 BE_LOCAL_PATH := nil
 
-GOPKG_KEYS ?= CDK CTK CLR CLC CLS CLM
+GOPKG_KEYS ?= CDK CTK
 
 CDK_GO_PACKAGE ?= github.com/go-curses/cdk
 CDK_LOCAL_PATH ?= ../cdk
@@ -39,17 +39,21 @@ CDK_LOCAL_PATH ?= ../cdk
 CTK_GO_PACKAGE ?= github.com/go-curses/ctk
 CTK_LOCAL_PATH ?= ../ctk
 
-CLR_GO_PACKAGE ?= github.com/go-curses/corelibs/run
-CLR_LOCAL_PATH ?= ../corelibs/run
+GOPKG_KEYS += CL_RUN
+CL_RUN_GO_PACKAGE ?= github.com/go-curses/corelibs/run
+CL_RUN_LOCAL_PATH ?= ../corelibs/run
 
-CLC_GO_PACKAGE ?= github.com/go-curses/corelibs/chdirs
-CLC_LOCAL_PATH ?= ../corelibs/chdirs
+GOPKG_KEYS += CL_CHDIRS
+CL_CHDIRS_GO_PACKAGE ?= github.com/go-curses/corelibs/chdirs
+CL_CHDIRS_LOCAL_PATH ?= ../corelibs/chdirs
 
-CLS_GO_PACKAGE ?= github.com/go-curses/corelibs/spinner
-CLS_LOCAL_PATH ?= ../corelibs/spinner
+GOPKG_KEYS += CL_SPINNER
+CL_SPINNER_GO_PACKAGE ?= github.com/go-curses/corelibs/spinner
+CL_SPINNER_LOCAL_PATH ?= ../corelibs/spinner
 
-CLM_GO_PACKAGE ?= github.com/go-curses/corelibs/maps
-CLM_LOCAL_PATH ?= ../corelibs/maps
+GOPKG_KEYS += CL_MAPS
+CL_MAPS_GO_PACKAGE ?= github.com/go-curses/corelibs/maps
+CL_MAPS_LOCAL_PATH ?= ../corelibs/maps
 
 CLEAN_FILES     ?= ${BIN_NAME} ${BIN_NAME}.*.* coverage.out pprof.*
 DISTCLEAN_FILES ?=
