@@ -31,7 +31,7 @@ var (
 )
 
 type CPackage struct {
-	u *CUpdater
+	u *CUI
 
 	Project *CProject
 
@@ -46,7 +46,7 @@ type CPackage struct {
 	Error ctk.Label
 }
 
-func (u *CUpdater) newPackage(project *CProject, module *update.Module) (p *CPackage) {
+func (u *CUI) newPackage(project *CProject, module *update.Module) (p *CPackage) {
 	p = &CPackage{
 		u:       u,
 		Project: project,

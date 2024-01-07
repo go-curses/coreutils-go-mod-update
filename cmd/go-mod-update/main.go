@@ -67,7 +67,7 @@ func init() {
 }
 
 func main() {
-	updater := ui.NewUpdater(
+	updater := ui.NewUI(
 		APP_NAME,
 		APP_USAGE,
 		APP_DESCRIPTION,

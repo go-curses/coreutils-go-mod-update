@@ -32,7 +32,7 @@ import (
 	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
-func (u *CUpdater) startupInitChecks(ctx *cli.Context) (event cenums.EventFlag) {
+func (u *CUI) startupInitChecks(ctx *cli.Context) (event cenums.EventFlag) {
 
 	if ctx.Bool("direct") {
 		u.goProxy = "direct"
@@ -91,7 +91,7 @@ func (u *CUpdater) startupInitChecks(ctx *cli.Context) (event cenums.EventFlag) 
 	return cenums.EVENT_PASS
 }
 
-func (u *CUpdater) startup(data []interface{}, argv ...interface{}) cenums.EventFlag {
+func (u *CUI) startup(data []interface{}, argv ...interface{}) cenums.EventFlag {
 	var ok bool
 	if u.App, u.Display, _, _, _, ok = ctk.ArgvApplicationSignalStartup(argv...); ok {
 
@@ -167,7 +167,7 @@ func (u *CUpdater) startup(data []interface{}, argv ...interface{}) cenums.Event
 	return cenums.EVENT_STOP
 }
 
-func (u *CUpdater) shutdown(_ []interface{}, _ ...interface{}) cenums.EventFlag {
+func (u *CUI) shutdown(_ []interface{}, _ ...interface{}) cenums.EventFlag {
 	_ = update.StopDiscovery()
 	if u.LastError != nil {
 		fmt.Printf("%v\n", u.LastError)

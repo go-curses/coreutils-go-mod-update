@@ -14,6 +14,6 @@
 
 package ui
 
-func (u *CUpdater) requestQuit() {
+func (u *CUI) requestQuit() {
 	u.Display.RequestQuit()
 }

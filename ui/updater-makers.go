@@ -24,7 +24,7 @@ import (
 	"github.com/go-curses/ctk"
 )
 
-func (u *CUpdater) makeAccelmap() (ag ctk.AccelGroup) {
+func (u *CUI) makeAccelmap() (ag ctk.AccelGroup) {
 	ag = ctk.NewAccelGroup()
 	ag.ConnectByPath(
 		"<updater-window>/File/Update",
@@ -64,7 +64,7 @@ func (u *CUpdater) makeAccelmap() (ag ctk.AccelGroup) {
 	return
 }
 
-func (u *CUpdater) makeActionButtonBox() ctk.HButtonBox {
+func (u *CUI) makeActionButtonBox() ctk.HButtonBox {
 	u.ActionHBox = ctk.NewHButtonBox(false, 1)
 	u.ActionHBox.Show()
 	u.ActionHBox.SetSizeRequest(-1, 1)
@@ -106,7 +106,7 @@ func (u *CUpdater) makeActionButtonBox() ctk.HButtonBox {
 	return u.ActionHBox
 }
 
-func (u *CUpdater) makeButton(key, fKey, label, tooltip string, actFn cdk.SignalListenerFn) (button ctk.Button) {
+func (u *CUI) makeButton(key, fKey, label, tooltip string, actFn cdk.SignalListenerFn) (button ctk.Button) {
 	fKey = strings.ToUpper(fKey)
 	shortTitle := fmt.Sprintf("%s <%s>", label, fKey)
 	button = ctk.NewButtonWithMnemonic(shortTitle)
@@ -123,7 +123,7 @@ func (u *CUpdater) makeButton(key, fKey, label, tooltip string, actFn cdk.Signal
 	return
 }
 
-func (u *CUpdater) makeLabel(name, text string) (label ctk.Label) {
+func (u *CUI) makeLabel(name, text string) (label ctk.Label) {
 	label = ctk.NewLabel(text)
 	label.Show()
 	label.SetName(name)
@@ -135,7 +135,7 @@ func (u *CUpdater) makeLabel(name, text string) (label ctk.Label) {
 	return
 }
 
-func (u *CUpdater) makeError(err error) (label ctk.Label) {
+func (u *CUI) makeError(err error) (label ctk.Label) {
 	text := err.Error()
 	label = ctk.NewLabel(text)
 	label.SetName("module-error")

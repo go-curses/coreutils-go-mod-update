@@ -24,7 +24,7 @@ import (
 	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
-func (u *CUpdater) requestDiscovery() {
+func (u *CUI) requestDiscovery() {
 	if !u.State().Idle() {
 		log.DebugF("user requesting discovery when updater is not idle")
 		return

@@ -23,7 +23,7 @@ import (
 	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
-func (u *CUpdater) requestUpdatesStatusUpdater(idx, moduleCount int, project, previous *CProject, symbol string, overrideMessage string) {
+func (u *CUI) requestUpdatesStatusUpdater(idx, moduleCount int, project, previous *CProject, symbol string, overrideMessage string) {
 	if project != nil {
 		project.Frame.SetLabel(symbol + " " + project.Name)
 		project.Frame.Resize()
@@ -46,7 +46,7 @@ func (u *CUpdater) requestUpdatesStatusUpdater(idx, moduleCount int, project, pr
 	return
 }
 
-func (u *CUpdater) requestUpdates() {
+func (u *CUI) requestUpdates() {
 	u.modLock.Lock()
 	defer u.modLock.Unlock()
 
