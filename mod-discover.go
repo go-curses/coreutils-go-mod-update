@@ -20,10 +20,9 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/go-curses/corelibs/chdirs"
-
+	"github.com/go-corelibs/chdirs"
+	"github.com/go-corelibs/run"
 	"github.com/go-curses/cdk/log"
-	"github.com/go-curses/corelibs/run"
 )
 
 const (
