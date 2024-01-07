@@ -12,25 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package updater
+package ui
 
-type Projects []*CProject
-
-func (p Projects) Height() (height int) {
-	for _, project := range p {
-		height += project.Height()
-	}
-	return
-}
-
-func (p Projects) Refresh() {
-	for _, project := range p {
-		project.Refresh()
-	}
-}
-
-func (p Projects) Resize() {
-	for _, project := range p {
-		project.Resize()
-	}
+func (u *CUpdater) requestQuit() {
+	u.Display.RequestQuit()
 }

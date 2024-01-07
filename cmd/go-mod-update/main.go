@@ -23,7 +23,7 @@ import (
 	cstrings "github.com/go-curses/cdk/lib/strings"
 	"github.com/go-curses/cdk/log"
 
-	"github.com/go-curses/coreutils-go-mod-update/ui/updater"
+	"github.com/go-curses/coreutils-go-mod-update/ui"
 )
 
 const (
@@ -67,7 +67,7 @@ func init() {
 }
 
 func main() {
-	updater := updater.NewUpdater(
+	updater := ui.NewUpdater(
 		APP_NAME,
 		APP_USAGE,
 		APP_DESCRIPTION,
