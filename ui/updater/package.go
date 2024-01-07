@@ -15,12 +15,12 @@
 package updater
 
 import (
+	"github.com/go-corelibs/spinner"
 	"github.com/go-curses/cdk"
 	"github.com/go-curses/cdk/lib/enums"
-	"github.com/go-curses/corelibs/spinner"
 	"github.com/go-curses/ctk"
 
-	"github.com/go-curses/coreutils-go-mod-update"
+	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
 var (
@@ -132,7 +132,7 @@ func (p *CPackage) GoModUpdate() {
 	p.Button.SetSensitive(false)
 
 	var s spinner.Spinner
-	s = spinner.NewSpinner(spinner.DefaultSymbols, func(symbol string) {
+	s = spinner.New(spinner.DefaultSymbols, func(symbol string) {
 		p.Button.SetLabel(" " + symbol + " ")
 		p.u.Display.RequestDraw()
 		p.u.Display.RequestShow()

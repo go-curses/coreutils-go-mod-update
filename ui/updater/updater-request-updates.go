@@ -18,7 +18,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-curses/corelibs/spinner"
+	"github.com/go-corelibs/spinner"
+
 	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
@@ -64,7 +65,7 @@ func (u *CUpdater) requestUpdates() {
 		return
 	}
 
-	s = spinner.NewSpinner(spinner.DefaultSymbols, statusUpdater)
+	s = spinner.New(spinner.DefaultSymbols, statusUpdater)
 
 	for _, project = range u.Projects {
 		var updated bool

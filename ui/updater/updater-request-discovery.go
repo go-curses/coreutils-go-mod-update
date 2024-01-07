@@ -17,12 +17,11 @@ package updater
 import (
 	"fmt"
 
-	"github.com/go-curses/cdk/log"
-	"github.com/go-curses/corelibs/spinner"
-
+	"github.com/go-corelibs/spinner"
 	"github.com/go-curses/cdk"
+	"github.com/go-curses/cdk/log"
 
-	"github.com/go-curses/coreutils-go-mod-update"
+	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
 func (u *CUpdater) requestDiscovery() {
@@ -48,7 +47,7 @@ func (u *CUpdater) requestDiscovery() {
 		child.Destroy()
 	}
 
-	s = spinner.NewSpinner(spinner.DefaultSymbols, func(symbol string) {
+	s = spinner.New(spinner.DefaultSymbols, func(symbol string) {
 		if project != nil {
 			project.Frame.SetLabel(symbol + " " + project.Name)
 			project.Frame.Resize()
