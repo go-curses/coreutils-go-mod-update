@@ -21,7 +21,7 @@
 #export
 
 BIN_NAME := go-mod-update
-UNTAGGED_VERSION := v0.2.2
+UNTAGGED_VERSION := v0.2.3
 UNTAGGED_COMMIT := trunk
 
 SHELL := /bin/bash
