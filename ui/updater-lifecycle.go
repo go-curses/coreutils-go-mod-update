@@ -12,12 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package updater
+package ui
 
 import (
 	"fmt"
 	"os"
 	"path/filepath"
+
+	"github.com/urfave/cli/v2"
 
 	"github.com/go-curses/cdk"
 	cenums "github.com/go-curses/cdk/lib/enums"
@@ -30,7 +32,66 @@ import (
 	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
-func (u *CUpdater) startup(data []interface{}, argv ...interface{}) cenums.EventFlag {
+func (u *CUI) startupInitChecks(ctx *cli.Context) (event cenums.EventFlag) {
+
+	if ctx.Bool("direct") {
+		u.goProxy = "direct"
+	} else if ctx.IsSet("goproxy") {
+		u.goProxy = ctx.String("goproxy")
+	}
+
+	u.tidy = ctx.Bool("tidy")
+
+	if args := ctx.Args().Slice(); len(args) > 0 {
+		for _, arg := range args {
+			if paths.IsDir(arg) {
+				if paths.IsFile(arg + "/go.mod") {
+					if path, err := filepath.Abs(arg); err == nil {
+						u.paths = append(u.paths, path)
+					} else {
+						u.LastError = fmt.Errorf("error: %q - %v", arg, err)
+						log.Error(u.LastError)
+						return cenums.EVENT_STOP
+					}
+				} else {
+					u.LastError = fmt.Errorf("error: go.mod not found in %q", arg)
+					log.Error(u.LastError)
+					return cenums.EVENT_STOP
+				}
+			} else {
+				u.LastError = fmt.Errorf("error: not a directory - %q", arg)
+				log.Error(u.LastError)
+				return cenums.EVENT_STOP
+			}
+		}
+	}
+
+	if len(u.paths) == 0 {
+		if cwd, err := os.Getwd(); err == nil {
+			if paths.IsFile("./go.mod") {
+				u.paths = append(u.paths, cwd)
+			} else {
+				u.LastError = fmt.Errorf("error: go.mod not found in %q", cwd)
+				log.Error(u.LastError)
+				return cenums.EVENT_STOP
+			}
+		} else {
+			u.LastError = err
+			log.Error(err)
+			return cenums.EVENT_STOP
+		}
+	}
+
+	screenSize := ptypes.MakeRectangle(u.Display.Screen().Size())
+	if screenSize.W < 60 || screenSize.H < 14 {
+		u.LastError = fmt.Errorf("rpl requires a terminal with at least 80x24 dimensions")
+		log.Error(u.LastError)
+		return cenums.EVENT_STOP
+	}
+	return cenums.EVENT_PASS
+}
+
+func (u *CUI) startup(data []interface{}, argv ...interface{}) cenums.EventFlag {
 	var ok bool
 	if u.App, u.Display, _, _, _, ok = ctk.ArgvApplicationSignalStartup(argv...); ok {
 
@@ -38,60 +99,8 @@ func (u *CUpdater) startup(data []interface{}, argv ...interface{}) cenums.Event
 		defer u.App.NotifyStartupComplete()
 
 		ctx := u.App.GetContext()
-
-		if ctx.Bool("direct") {
-			u.goProxy = "direct"
-		} else if ctx.IsSet("goproxy") {
-			u.goProxy = ctx.String("goproxy")
-		}
-
-		u.tidy = ctx.Bool("tidy")
-
-		if args := ctx.Args().Slice(); len(args) > 0 {
-			for _, arg := range args {
-				if paths.IsDir(arg) {
-					if paths.IsFile(arg + "/go.mod") {
-						if path, err := filepath.Abs(arg); err == nil {
-							u.paths = append(u.paths, path)
-						} else {
-							u.LastError = fmt.Errorf("error: %q - %v", arg, err)
-							log.Error(u.LastError)
-							return cenums.EVENT_STOP
-						}
-					} else {
-						u.LastError = fmt.Errorf("error: go.mod not found in %q", arg)
-						log.Error(u.LastError)
-						return cenums.EVENT_STOP
-					}
-				} else {
-					u.LastError = fmt.Errorf("error: not a directory - %q", arg)
-					log.Error(u.LastError)
-					return cenums.EVENT_STOP
-				}
-			}
-		}
-
-		if len(u.paths) == 0 {
-			if cwd, err := os.Getwd(); err == nil {
-				if paths.IsFile("./go.mod") {
-					u.paths = append(u.paths, cwd)
-				} else {
-					u.LastError = fmt.Errorf("error: go.mod not found in %q", cwd)
-					log.Error(u.LastError)
-					return cenums.EVENT_STOP
-				}
-			} else {
-				u.LastError = err
-				log.Error(err)
-				return cenums.EVENT_STOP
-			}
-		}
-
-		screenSize := ptypes.MakeRectangle(u.Display.Screen().Size())
-		if screenSize.W < 60 || screenSize.H < 14 {
-			u.LastError = fmt.Errorf("eheditor requires a terminal with at least 80x24 dimensions")
-			log.Error(u.LastError)
-			return cenums.EVENT_STOP
+		if e := u.startupInitChecks(ctx); e != cenums.EVENT_PASS {
+			return e
 		}
 
 		title := fmt.Sprintf("%s - %v", u.App.Title(), u.App.Version())
@@ -158,7 +167,7 @@ func (u *CUpdater) startup(data []interface{}, argv ...interface{}) cenums.Event
 	return cenums.EVENT_STOP
 }
 
-func (u *CUpdater) shutdown(_ []interface{}, _ ...interface{}) cenums.EventFlag {
+func (u *CUI) shutdown(_ []interface{}, _ ...interface{}) cenums.EventFlag {
 	_ = update.StopDiscovery()
 	if u.LastError != nil {
 		fmt.Printf("%v\n", u.LastError)

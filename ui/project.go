@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package updater
+package ui
 
 import (
 	"fmt"
@@ -24,7 +24,7 @@ import (
 )
 
 type CProject struct {
-	u *CUpdater
+	u *CUI
 
 	Path string
 	Name string
@@ -35,7 +35,7 @@ type CProject struct {
 	Packages []*CPackage
 }
 
-func (u *CUpdater) newProject(path string) (p *CProject) {
+func (u *CUI) newProject(path string) (p *CProject) {
 	p = &CProject{
 		Path: path,
 		Name: filepath.Base(path),

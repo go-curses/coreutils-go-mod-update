@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package updater
+package ui
 
 type State uint8
 
@@ -34,14 +34,14 @@ func (s State) Idle() (idle bool) {
 	return
 }
 
-func (u *CUpdater) State() (state State) {
+func (u *CUI) State() (state State) {
 	u.RLock()
 	defer u.RUnlock()
 	state = u.state
 	return
 }
 
-func (u *CUpdater) SetState(state State) {
+func (u *CUI) SetState(state State) {
 	if !state.Valid() {
 		panic("invalid State given")
 	}
@@ -59,7 +59,7 @@ func (u *CUpdater) SetState(state State) {
 	u.refreshUI()
 }
 
-func (u *CUpdater) setIdleState() {
+func (u *CUI) setIdleState() {
 	u.refreshUpdateButton()
 	u.refreshDiscoverButton()
 	u.StateSpinner.StopSpinning()
@@ -71,7 +71,7 @@ func (u *CUpdater) setIdleState() {
 	u.Display.RequestShow()
 }
 
-func (u *CUpdater) setDiscoveryState() {
+func (u *CUI) setDiscoveryState() {
 	u.refreshUpdateButton()
 	u.refreshDiscoverButton()
 	u.StateSpinner.Show()
@@ -82,7 +82,7 @@ func (u *CUpdater) setDiscoveryState() {
 	u.Display.RequestShow()
 }
 
-func (u *CUpdater) setUpdatingState() {
+func (u *CUI) setUpdatingState() {
 	u.refreshUpdateButton()
 	u.refreshDiscoverButton()
 	u.StateSpinner.Show()

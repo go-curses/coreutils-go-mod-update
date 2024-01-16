@@ -21,8 +21,8 @@
 #export
 
 BIN_NAME := go-mod-update
-UNTAGGED_VERSION := v0.2.2
-UNTAGGED_COMMIT := 5fccd8cf88
+UNTAGGED_VERSION := v0.2.3
+UNTAGGED_COMMIT := trunk
 
 SHELL := /bin/bash
 RUN_ARGS := --help
@@ -32,28 +32,7 @@ GO_ENJIN_PKG := nil
 BE_LOCAL_PATH := nil
 
 GOPKG_KEYS ?= CDK CTK
-
-CDK_GO_PACKAGE ?= github.com/go-curses/cdk
-CDK_LOCAL_PATH ?= ../cdk
-
-CTK_GO_PACKAGE ?= github.com/go-curses/ctk
-CTK_LOCAL_PATH ?= ../ctk
-
-GOPKG_KEYS += CL_RUN
-CL_RUN_GO_PACKAGE ?= github.com/go-curses/corelibs/run
-CL_RUN_LOCAL_PATH ?= ../corelibs/run
-
-GOPKG_KEYS += CL_CHDIRS
-CL_CHDIRS_GO_PACKAGE ?= github.com/go-curses/corelibs/chdirs
-CL_CHDIRS_LOCAL_PATH ?= ../corelibs/chdirs
-
-GOPKG_KEYS += CL_SPINNER
-CL_SPINNER_GO_PACKAGE ?= github.com/go-curses/corelibs/spinner
-CL_SPINNER_LOCAL_PATH ?= ../corelibs/spinner
-
-GOPKG_KEYS += CL_MAPS
-CL_MAPS_GO_PACKAGE ?= github.com/go-curses/corelibs/maps
-CL_MAPS_LOCAL_PATH ?= ../corelibs/maps
+AUTO_CORELIBS := true
 
 CLEAN_FILES     ?= ${BIN_NAME} ${BIN_NAME}.*.* coverage.out pprof.*
 DISTCLEAN_FILES ?=
@@ -63,6 +42,8 @@ BUILD_VERSION_VAR := main.BuildVersion
 BUILD_RELEASE_VAR := main.BuildRelease
 
 SRC_CMD_PATH := ./cmd/go-mod-update
+
+BUILD_EXTRA_LDFLAGS += -X 'github.com/go-curses/cdk.IncludeTtyFlag=true'
 
 include Golang.cmd.mk
 include Golang.def.mk

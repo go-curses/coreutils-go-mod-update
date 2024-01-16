@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package updater
+package ui
 
 import (
+	"github.com/go-corelibs/spinner"
 	"github.com/go-curses/cdk"
 	"github.com/go-curses/cdk/lib/enums"
-	"github.com/go-curses/corelibs/spinner"
 	"github.com/go-curses/ctk"
 
-	"github.com/go-curses/coreutils-go-mod-update"
+	update "github.com/go-curses/coreutils-go-mod-update"
 )
 
 var (
@@ -31,7 +31,7 @@ var (
 )
 
 type CPackage struct {
-	u *CUpdater
+	u *CUI
 
 	Project *CProject
 
@@ -46,7 +46,7 @@ type CPackage struct {
 	Error ctk.Label
 }
 
-func (u *CUpdater) newPackage(project *CProject, module *update.Module) (p *CPackage) {
+func (u *CUI) newPackage(project *CProject, module *update.Module) (p *CPackage) {
 	p = &CPackage{
 		u:       u,
 		Project: project,
@@ -132,7 +132,7 @@ func (p *CPackage) GoModUpdate() {
 	p.Button.SetSensitive(false)
 
 	var s spinner.Spinner
-	s = spinner.NewSpinner(spinner.DefaultSymbols, func(symbol string) {
+	s = spinner.New(spinner.DefaultSymbols, func(symbol string) {
 		p.Button.SetLabel(" " + symbol + " ")
 		p.u.Display.RequestDraw()
 		p.u.Display.RequestShow()

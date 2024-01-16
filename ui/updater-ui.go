@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package updater
+package ui
 
-func (u *CUpdater) getContentWidth() (w int) {
+func (u *CUI) getContentWidth() (w int) {
 	if screen := u.Display.Screen(); screen != nil {
 		w, _ = screen.Size()
 		w -= 2
@@ -25,7 +25,7 @@ func (u *CUpdater) getContentWidth() (w int) {
 	return
 }
 
-func (u *CUpdater) resizeUI() {
+func (u *CUI) resizeUI() {
 	u.ProjectList.Freeze()
 
 	contentWidth := u.getContentWidth()
@@ -48,7 +48,7 @@ func (u *CUpdater) resizeUI() {
 	u.Display.RequestShow()
 }
 
-func (u *CUpdater) refreshUI() {
+func (u *CUI) refreshUI() {
 	u.Window.Freeze()
 	u.Projects.Refresh()
 	u.refreshUpdateButton()
@@ -56,7 +56,7 @@ func (u *CUpdater) refreshUI() {
 	u.resizeUI()
 }
 
-func (u *CUpdater) refreshDiscoverButton() {
+func (u *CUI) refreshDiscoverButton() {
 	if !u.State().Idle() {
 		u.DiscoverButton.SetSensitive(false)
 		u.DiscoverButton.Hide()
@@ -66,7 +66,7 @@ func (u *CUpdater) refreshDiscoverButton() {
 	u.DiscoverButton.Show()
 }
 
-func (u *CUpdater) refreshUpdateButton() {
+func (u *CUI) refreshUpdateButton() {
 	if u.State().Idle() {
 		for _, project := range u.Projects {
 			for _, pkg := range project.Packages {
