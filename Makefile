@@ -42,6 +42,4 @@ BUILD_RELEASE_VAR := main.BuildRelease
 
 SRC_CMD_PATH := ./cmd/go-mod-update
 
-BUILD_EXTRA_LDFLAGS += -X 'github.com/go-curses/cdk.IncludeTtyFlag=true'
-
 include Golang.mk

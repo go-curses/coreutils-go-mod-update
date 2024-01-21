@@ -19,6 +19,7 @@ import (
 
 	"github.com/urfave/cli/v2"
 
+	"github.com/go-curses/cdk"
 	"github.com/go-curses/cdk/log"
 
 	"github.com/go-curses/coreutils-go-mod-update/ui"
@@ -36,6 +37,10 @@ var (
 	BuildVersion = "v0.2.3"
 	BuildRelease = "trunk"
 )
+
+func init() {
+	cdk.AppCliTtyFlag.Category = ""
+}
 
 func main() {
 	updater := ui.NewUI(
