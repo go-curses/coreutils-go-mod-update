@@ -18,7 +18,6 @@
 #CMD=echo
 
 -include .env
-#export
 
 BIN_NAME := go-mod-update
 UNTAGGED_VERSION := v0.2.3
@@ -45,6 +44,4 @@ SRC_CMD_PATH := ./cmd/go-mod-update
 
 BUILD_EXTRA_LDFLAGS += -X 'github.com/go-curses/cdk.IncludeTtyFlag=true'
 
-include Golang.cmd.mk
-include Golang.def.mk
-include Golang.cdk.mk
+include Golang.mk
