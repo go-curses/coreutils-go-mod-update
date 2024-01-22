@@ -19,15 +19,15 @@ USAGE:
    go-mod-update [options] [/source/paths ...]
 
 VERSION:
-   v0.2.1 (trunk)
+   v0.2.4 (trunk)
 
 DESCRIPTION:
    command line utility for updating golang dependencies
 
 GLOBAL OPTIONS:
-   --tidy, -t                 run "go mod tidy" after updates (default: false) [$GO_MOD_UPDATE_TIDY]
-   --goproxy value, -p value  specify the GOPROXY setting to use (default: "https://proxy.golang.org,direct") [$GO_MOD_UPDATE_GOPROXY]
    --direct, -d               specify the GOPROXY setting of "direct" (overrides --goproxy) (default: false) [$GO_MOD_UPDATE_GOPROXY_DIRECT]
+   --goproxy value, -p value  specify the GOPROXY setting to use (default: "https://proxy.golang.org,direct") [$GO_MOD_UPDATE_GOPROXY]
+   --tidy, -t                 run "go mod tidy" after updates (default: false) [$GO_MOD_UPDATE_TIDY]
    --help, -h, --usage        display command-line usage information (default: false)
    --version, -v              display the version (default: false)
 ```
