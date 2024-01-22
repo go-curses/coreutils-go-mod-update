@@ -35,7 +35,7 @@ const (
 )
 
 var (
-	BuildVersion = "v0.2.3"
+	BuildVersion = "v0.2.4"
 	BuildRelease = "trunk"
 )
 
