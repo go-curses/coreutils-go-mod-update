@@ -19,8 +19,9 @@ import (
 
 	"github.com/urfave/cli/v2"
 
-	"github.com/go-curses/cdk"
 	"github.com/go-curses/cdk/log"
+
+	clcli "github.com/go-corelibs/cli"
 
 	"github.com/go-curses/coreutils-go-mod-update/ui"
 )
@@ -39,7 +40,10 @@ var (
 )
 
 func init() {
-	cdk.AppCliTtyFlag.Category = ""
+	cli.FlagStringer = clcli.NewFlagStringer().
+		PruneDefaultBools(true).
+		DetailsOnNewLines(true).
+		Make()
 }
 
 func main() {
