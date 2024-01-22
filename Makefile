@@ -18,11 +18,10 @@
 #CMD=echo
 
 -include .env
-#export
 
 BIN_NAME := go-mod-update
-UNTAGGED_VERSION := v0.2.3
-UNTAGGED_COMMIT := e936ca7ae1
+UNTAGGED_VERSION := v0.2.4
+UNTAGGED_COMMIT := trunk
 
 SHELL := /bin/bash
 RUN_ARGS := --help
@@ -43,14 +42,4 @@ BUILD_RELEASE_VAR := main.BuildRelease
 
 SRC_CMD_PATH := ./cmd/go-mod-update
 
-BUILD_EXTRA_LDFLAGS += -X 'github.com/go-curses/cdk.IncludeTtyFlag=true'
-
-include Golang.cmd.mk
-include Golang.def.mk
-include Golang.cdk.mk
-
-#: begin debian packaging branch changes
-PACKAGING_NAME := go-mod-update
--include Debian.mk
-export
-#: end debian packaging branch changes
+include Golang.mk

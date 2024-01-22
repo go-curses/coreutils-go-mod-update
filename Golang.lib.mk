@@ -14,18 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-GOLANG_MAKEFILE_KEYS += LIB
-GOLANG_LIB_MK_VERSION := v0.1.3
-
-#
-#: Go-Curses Packages
-#
-
-CDK_GO_PACKAGE ?= github.com/go-curses/cdk
-CDK_LOCAL_PATH ?= ../cdk
-
-CTK_GO_PACKAGE ?= github.com/go-curses/ctk
-CTK_LOCAL_PATH ?= ../ctk
+MAKEFILE_KEYS += GOLANG_LIB
+GOLANG_LIB_MK_FILE := Golang.lib.mk
+GOLANG_LIB_MK_VERSION := v0.2.1
+GOLANG_LIB_MK_DESCRIPTION := go-corelibs support
 
 #
 #: Core Library Packages
@@ -59,12 +51,20 @@ ifeq (chdirs,$(shell echo "${FOUND_CORELIBS}" | grep '^chdirs$$'))
 GOPKG_KEYS += CL_CHDIRS
 endif
 
+ifeq (cli,$(shell echo "${FOUND_CORELIBS}" | grep '^cli$$'))
+GOPKG_KEYS += CL_CLI
+endif
+
 ifeq (convert,$(shell echo "${FOUND_CORELIBS}" | grep '^convert$$'))
 GOPKG_KEYS += CL_CONVERT
 endif
 
 ifeq (diff,$(shell echo "${FOUND_CORELIBS}" | grep '^diff$$'))
 GOPKG_KEYS += CL_DIFF
+endif
+
+ifeq (env,$(shell echo "${FOUND_CORELIBS}" | grep '^env$$'))
+GOPKG_KEYS += CL_ENV
 endif
 
 ifeq (filewriter,$(shell echo "${FOUND_CORELIBS}" | grep '^filewriter$$'))
@@ -137,11 +137,17 @@ endif
 CL_CHDIRS_GO_PACKAGE ?= ${CORELIBS_BASE}/chdirs
 CL_CHDIRS_LOCAL_PATH ?= ${CORELIBS_PATH}/chdirs
 
+CL_CLI_GO_PACKAGE ?= ${CORELIBS_BASE}/cli
+CL_CLI_LOCAL_PATH ?= ${CORELIBS_PATH}/cli
+
 CL_CONVERT_GO_PACKAGE ?= ${CORELIBS_BASE}/convert
 CL_CONVERT_LOCAL_PATH ?= ${CORELIBS_PATH}/convert
 
 CL_DIFF_GO_PACKAGE ?= ${CORELIBS_BASE}/diff
 CL_DIFF_LOCAL_PATH ?= ${CORELIBS_PATH}/diff
+
+CL_ENV_GO_PACKAGE ?= ${CORELIBS_BASE}/env
+CL_ENV_LOCAL_PATH ?= ${CORELIBS_PATH}/env
 
 CL_FILEWRITER_GO_PACKAGE ?= ${CORELIBS_BASE}/filewriter
 CL_FILEWRITER_LOCAL_PATH ?= ${CORELIBS_PATH}/filewriter

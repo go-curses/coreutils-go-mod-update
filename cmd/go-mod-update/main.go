@@ -21,6 +21,8 @@ import (
 
 	"github.com/go-curses/cdk/log"
 
+	clcli "github.com/go-corelibs/cli"
+
 	"github.com/go-curses/coreutils-go-mod-update/ui"
 )
 
@@ -33,9 +35,16 @@ const (
 )
 
 var (
-	BuildVersion = "v0.2.3"
+	BuildVersion = "v0.2.4"
 	BuildRelease = "trunk"
 )
+
+func init() {
+	cli.FlagStringer = clcli.NewFlagStringer().
+		PruneDefaultBools(true).
+		DetailsOnNewLines(true).
+		Make()
+}
 
 func main() {
 	updater := ui.NewUI(

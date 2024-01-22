@@ -20,6 +20,7 @@ import (
 
 	"github.com/urfave/cli/v2"
 
+	clcli "github.com/go-corelibs/cli"
 	"github.com/go-curses/cdk"
 	"github.com/go-curses/cdk/env"
 	"github.com/go-curses/cdk/lib/sync"
@@ -91,6 +92,7 @@ func NewUI(name string, usage string, description string, version string, tag st
 			Aliases: []string{"t"},
 		},
 	)
+	clcli.ClearEmptyCategories(c.Flags)
 	sort.Sort(cli.FlagsByName(c.Flags))
 	u.App.Connect(cdk.SignalStartup, "updater-startup-handler", u.startup)
 	u.App.Connect(cdk.SignalShutdown, "updater-shutdown-handler", u.shutdown)
