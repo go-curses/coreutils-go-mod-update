@@ -21,7 +21,7 @@
 
 BIN_NAME := go-mod-update
 UNTAGGED_VERSION := v0.2.4
-UNTAGGED_COMMIT := trunk
+UNTAGGED_COMMIT := 24fe4fbce6
 
 SHELL := /bin/bash
 RUN_ARGS := --help
@@ -42,4 +42,8 @@ BUILD_RELEASE_VAR := main.BuildRelease
 
 SRC_CMD_PATH := ./cmd/go-mod-update
 
+#: begin debian packaging branch changes
+PACKAGING_NAME := go-mod-update
+-include Debian.mk
+#: end debian packaging branch changes
 include Golang.mk

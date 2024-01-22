@@ -1,3 +1,18 @@
+go-mod-update (0.2.4) unstable; urgency=medium
+
+  * tagged v0.2.4 release build - 24fe4fbce68d28ead3f3704748cb99c571f5e6ec
+  * upstream changes:
+   * 24fe4fb Makefile,cmd: setting versions to v0.2.4
+   * 4e3edcb go.mod: go-corelibs/cli v0.1.0; tidy
+   * c385e5d Golang.lib.mk: updated to v0.2.1
+   * bf8ea42 README.md: updated --help section
+   * def1cb1 cmd: use go-corelibs/cli.FlagStringer to cleanup --help output; remove cdk TtyFlag category override (now handled by prior commit)
+   * 39ac677 ui: use go-corelibs/cli.ClearEmptyCategories to cleanup --help output
+   * a8c8941 Makefile,cmd: hide --cdk-tty again; work around cli category with no visible flags issue
+   * b73386b Makefile,Golang*mk: migrate to Golang v0.2.0 build system
+
+ -- The Go-Curses Team <go.enjin.org+curses@gmail.com>  Mon, 22 Jan 2024 09:34:48 -0500
+
 go-mod-update (0.2.3) unstable; urgency=medium
 
   * tagged v0.2.3 release build - e936ca7ae1a4b22486a89dfac9eaeaa9023b9b57
