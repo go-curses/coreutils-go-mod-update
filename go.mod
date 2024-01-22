@@ -1,10 +1,11 @@
 module github.com/go-curses/coreutils-go-mod-update
 
-go 1.21.0
+go 1.21.5
 
 require (
 	github.com/Masterminds/semver/v3 v3.2.1
 	github.com/go-corelibs/chdirs v1.1.1
+	github.com/go-corelibs/cli v0.1.0
 	github.com/go-corelibs/run v1.0.1
 	github.com/go-corelibs/spinner v1.0.1
 	github.com/go-curses/cdk v0.5.22
@@ -19,6 +20,7 @@ require (
 	github.com/creack/pty v1.1.21 // indirect
 	github.com/felixge/fgprof v0.9.3 // indirect
 	github.com/gdamore/encoding v1.0.0 // indirect
+	github.com/go-corelibs/slices v1.2.0 // indirect
 	github.com/go-curses/term v1.2.2-gocurses.1 // indirect
 	github.com/go-curses/terminfo v1.1.0 // indirect
 	github.com/gofrs/uuid v4.4.0+incompatible // indirect
@@ -44,7 +46,7 @@ require (
 	github.com/x-cray/logrus-prefixed-formatter v0.5.2 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	golang.org/x/crypto v0.18.0 // indirect
-	golang.org/x/exp v0.0.0-20240112132812-db7319d0e0e3 // indirect
+	golang.org/x/exp v0.0.0-20240119083558-1b970713d09a // indirect
 	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/term v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect

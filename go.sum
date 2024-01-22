@@ -22,8 +22,12 @@ github.com/gdamore/encoding v1.0.0 h1:+7OoQ1Bc6eTm5niUzBa0Ctsh6JbMW6Ra+YNuAtDBdk
 github.com/gdamore/encoding v1.0.0/go.mod h1:alR0ol34c49FCSBLjhosxzcPHQbf2trDkoo5dl+VrEg=
 github.com/go-corelibs/chdirs v1.1.1 h1:N9rzIR+czy21jgp2qrSrXePbJfMrnrgMf3fnzXBW1YU=
 github.com/go-corelibs/chdirs v1.1.1/go.mod h1:LTJzxNUeHLUvJ2KSU+D+cNGTX0ZnIUytg1Ui/H3kRo0=
+github.com/go-corelibs/cli v0.1.0 h1:satfqJAV+p5UKKKmN7H7uxpJV0XUrfGEkXMd+b7e+O8=
+github.com/go-corelibs/cli v0.1.0/go.mod h1:bdGKizzGetpeWILvCZE9XYzz18socQpxWv/b/OQ2CTU=
 github.com/go-corelibs/run v1.0.1 h1:0N6Ku7tF8c3snIYq+Pg4g7IVs6ayVILvY4++L/qqGQU=
 github.com/go-corelibs/run v1.0.1/go.mod h1:l0gCnBzJE9UxkTZWxLfjzoX8EnmR5B86JBmkcbwxgYs=
+github.com/go-corelibs/slices v1.2.0 h1:penJP6zL40kv5AUU5ZxkmR9K9lKtCuuKe8LMKcUcYos=
+github.com/go-corelibs/slices v1.2.0/go.mod h1:vdScCtnJXNqPRvERHAzV/6BvUb9G+1YVYioUkWe801c=
 github.com/go-corelibs/spinner v1.0.1 h1:9vm3dYE+bx/V2A1Gs3FIHQgUqPbPwIK7zR8M/P83zFM=
 github.com/go-corelibs/spinner v1.0.1/go.mod h1:Abjnk5Rh/R1kkMDznsh7pZZEw3OzNGcfKir7o7Nptcw=
 github.com/go-curses/cdk v0.5.22 h1:XSEcHgt0FtN88wo5OMSy3EvAsviGKlJSvWpJvJblkIU=
@@ -102,8 +106,8 @@ github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 h1:bAn7/zixMGCfxrRT
 github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673/go.mod h1:N3UwUGtsrSj3ccvlPHLoLsHnpR27oXr4ZE984MbSER8=
 golang.org/x/crypto v0.18.0 h1:PGVlW0xEltQnzFZ55hkuX5+KLyrMYhHld1YHO4AKcdc=
 golang.org/x/crypto v0.18.0/go.mod h1:R0j02AL6hcrfOiy9T4ZYp/rcWeMxM3L6QYxlOuEG1mg=
-golang.org/x/exp v0.0.0-20240112132812-db7319d0e0e3 h1:hNQpMuAJe5CtcUqCXaWga3FHu+kQvCqcsoVaQgSV60o=
-golang.org/x/exp v0.0.0-20240112132812-db7319d0e0e3/go.mod h1:idGWGoKP1toJGkd5/ig9ZLuPcZBC3ewk7SzmH0uou08=
+golang.org/x/exp v0.0.0-20240119083558-1b970713d09a h1:Q8/wZp0KX97QFTc2ywcOE0YRjZPVIx+MXInMzdvQqcA=
+golang.org/x/exp v0.0.0-20240119083558-1b970713d09a/go.mod h1:idGWGoKP1toJGkd5/ig9ZLuPcZBC3ewk7SzmH0uou08=
 golang.org/x/net v0.20.0 h1:aCL9BSgETF1k+blQaYUBx9hJ9LOGP3gAVemcZlf1Kpo=
 golang.org/x/net v0.20.0/go.mod h1:z8BVo6PvndSri0LbOE3hAn0apkU+1YvI6E70E9jsnvY=
 golang.org/x/sys v0.0.0-20211007075335-d3039528d8ac/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
